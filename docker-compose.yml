@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  api:
+    container_name: ml.determination-of-tonality.local
+    restart: always
+    build: api
+    volumes: ['./api:/api']
+    networks:
+      - MLdeterminationOfTonalityNetwork
+      - gateway-api
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+  nginx-determination_of_tonality:
+    container_name: nginx-determination_of_tonality
+    restart: always
+    build: ./nginx
+    networks:
+      - MLdeterminationOfTonalityNetwork
+      - gateway-api
+    ports:
+      - "83:80"
+networks:
+  MLdeterminationOfTonalityNetwork:
+  gateway-api:
+    external:
+      name: determinationoftonality_api_default
