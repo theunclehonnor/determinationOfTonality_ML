@@ -7,7 +7,7 @@ services:
     build: api
     volumes: ['./api:/api']
     networks:
-      - MLdeterminationOfTonalityNetwork
+      - mlDeterminationOfTonalityNetwork
       - gateway-api
     expose:
       - "5000"
@@ -18,12 +18,12 @@ services:
     restart: always
     build: ./nginx
     networks:
-      - MLdeterminationOfTonalityNetwork
+      - mlDeterminationOfTonalityNetwork
       - gateway-api
     ports:
       - "83:80"
 networks:
-  MLdeterminationOfTonalityNetwork:
+  mlDeterminationOfTonalityNetwork:
   gateway-api:
     external:
       name: determinationoftonality_api_default

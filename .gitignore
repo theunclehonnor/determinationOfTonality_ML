@@ -1,6 +1,7 @@
 .idea/
 venv
+./api/Models/
 *__pycache__
-model/__pycache__
+api/Models/__pycache__
 api/__pycache__
 nginx/__pycache__

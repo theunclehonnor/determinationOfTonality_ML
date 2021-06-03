@@ -11,7 +11,7 @@ app.add_api('swagger_api.yaml')
 
 @app.route("/")
 def index():
-    return 'Demand Forecast Service'
+    return 'Determination Of Tonality ML service'
 
 
 if __name__ == '__main__':
