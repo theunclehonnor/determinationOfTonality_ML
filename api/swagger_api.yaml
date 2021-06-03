@@ -10,13 +10,13 @@ tags:
 - name: PredictTonality
   description: Информация о продажах за определенный период
 paths:
-  /bagOfWord_method/bagOfWords:
+  /bagOfWord_method/predict:
     post:
       tags:
       - PredictTonality
-      summary: Определение тональности отзывов методом Bag Of Word | "Мешок слов"
-      description: Предсказание тональности отзывов на обученной модели.
-      operationId: api.bagOfWord_method.bagOfWords
+      summary: Определение тональности отзывов с помощью метода Bag Of Word | "Мешок слов"
+      description: Предсказание тональности отзывов на заранее обученной модели.
+      operationId: api.bagOfWord_method.predict
       parameters:
       - name: nameDataSet
         in: query
@@ -37,19 +37,59 @@ paths:
                 $ref: '#/components/schemas/reviews'
       responses:
         '200':
-          description: successful operation
+          description: Успешная операция
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/reviews'
-        '400':
-          description: unsuccessful operation
+        '500':
+          description: Операция не удалась
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_400'
+                $ref: '#/components/schemas/inline_response_500'
+  /word2Vec_method/predict:
+    post:
+      tags:
+        - PredictTonality
+      summary: Определение тональности отзывов с помощью метода Word2Vec
+      description: Предсказание тональности отзывов на заранее обученной модели.
+      operationId: api.word2Vec_method.predict
+      parameters:
+        - name: nameDataSet
+          in: query
+          description: Название Дата-сета на котором обучалась модель
+          schema:
+            type: string
+        - name: nameClassificator
+          in: query
+          description: Название классификатора с помощью которого обучалась модель
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/reviews'
+      responses:
+        '200':
+          description: Успешная операция
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/reviews'
+        '500':
+          description: Операция не удалась
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_500'
 components:
   schemas:
     reviews:
@@ -80,7 +120,7 @@ components:
         sentiment:
           type: integer
           nullable: true
-    inline_response_400:
+    inline_response_500:
       properties:
         message:
           type: string

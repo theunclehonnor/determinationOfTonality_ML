@@ -37,7 +37,7 @@ def serializationJson(dataFrame):
     return parsed
 
 
-def bagOfWords(nameDataSet, nameClassificator):
+def predict(nameDataSet = 'twitter', nameClassificator = 'RandomForest'):
     try:
         ### Название колонки с отзывми и тональностью ##
         reviewColumn = 'review'
@@ -83,7 +83,7 @@ def bagOfWords(nameDataSet, nameClassificator):
         return jsonify(reviewsJson), 200
     except Exception:
         return jsonify({
-            'code': 400,
+            'code': 500,
             'message': 'Сервиса с предсказанием тональности временно неработает. Мы уже работаем над этим.'
                        'Приносим свои извинения за предоставленные неудобства.'
-        }), 400
+        }), 500
